@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\CarController;
+use App\Http\Controllers\ProductController;
 use App\Models\User;
 use App\Models\Car;
 use Illuminate\Http\Request;
@@ -114,4 +115,8 @@ Route::get ('/{car}', [CarController::class, 'show']);
 Route::put('/{car}', [CarController::class, 'update']);
 
 });
+
+Route::apiResource('products', ProductController::class);
+
+Route::post('products/{product}/reduce-stock', [ProductController::class, 'reduceStock']);
 

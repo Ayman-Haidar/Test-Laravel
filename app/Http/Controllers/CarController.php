@@ -2,14 +2,22 @@
 
 namespace App\Http\Controllers;
 use App\Models\Car;
-
+use App\Http\Requests\StoreCarRequest;
 use Illuminate\Http\Request;
 
 class CarController extends Controller
 {
-     public function store(Request $request, Car $car) {
+     public function store(StoreCarRequest $request, Car $car) {
+        $validated = $request->validated([
+            'name' => 'required|string',
+            'model' => 'required|string',
+            'details' => 'required|array',]);
 
-            $car ->create($request->all());
+
+         $car ->create($validated);
+
+        return $car;
+        // return $request->all();
         }
 
 
@@ -84,6 +92,7 @@ class CarController extends Controller
         public function show(Car $car) {
             return $car;
         }
+
         public function index() {
              $cars = car::query()->get();
              return $cars;
