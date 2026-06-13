@@ -7,16 +7,16 @@ use Illuminate\Database\Eloquent\Attributes\Hidden;
 use Illuminate\Database\Eloquent\Model;
 
 #[Fillable(['name', 'model', 'details'])]
-#[Hidden(['model'])]
+// #[Hidden(['model'])]
 
 class Car extends Model
 {
-    protected function casts(): array
-    {
-        return [
-            'details' => 'array',
-        ];
-    }
+    // protected function casts(): array
+    // {
+    //     return [
+    //         'details' => 'array',
+    //     ];
+    // }
 
 
 }

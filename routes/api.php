@@ -102,19 +102,19 @@ Route::get('users/{user}', function (User $user) {
 // });
 
 
-Route::prefix('cars')->group(function () {
+// Route::prefix('cars')->group(function () {
 
-Route::post('/', [CarController::class, 'store']);
+// Route::post('/', [CarController::class, 'store']);
 
-Route::get ('/', [CarController::class, 'index']);
+// Route::get ('/', [CarController::class, 'index']);
 
-Route::delete ('/{car}', [CarController::class, 'destroy']);
+// Route::delete ('/{car}', [CarController::class, 'destroy']);
 
-Route::get ('/{car}', [CarController::class, 'show']);
+// Route::get ('/{car}', [CarController::class, 'show']);
 
-Route::put('/{car}', [CarController::class, 'update']);
+// Route::put('/{car}', [CarController::class, 'update']);
 
-});
+// });
 
 Route::apiResource('products', ProductController::class);
 

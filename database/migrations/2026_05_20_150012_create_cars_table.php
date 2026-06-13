@@ -16,7 +16,8 @@ return new class extends Migration
             $table->timestamps();
             $table->string("name");
             $table->string("model");
-            $table->json("details")->nullable();
+            // $table->json("details")->nullable();
+            $table->string("details")->nullable();
         });
     }
 
