@@ -1,5 +1,5 @@
 <?php
-
+use App\Http\Controllers\ProductWebController;
 use App\Http\Controllers\CarWebController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
@@ -9,26 +9,26 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::post('products', function () {
-    $product = DB::table('products')->insert(
-        [
-            [
-             'name' => 'Example Product',
-             'description' => 'This is an example product.',
-             'price' => 19.99,
-            ]
-    ]
+// Route::post('products', function () {
+//     $product = DB::table('products')->insert(
+//         [
+//             [
+//              'name' => 'Example Product',
+//              'description' => 'This is an example product.',
+//              'price' => 19.99,
+//             ]
+//     ]
 
-    );
-return $product;
+//     );
+// return $product;
 
 
-});
+// });
 
-Route::get('products_all', function () {
-    $product = DB::table('products')->get();
-    return $product;
-});
+// Route::get('products_all', function () {
+//     $product = DB::table('products')->get();
+//     return $product;
+// });
 
 route:: get('test', function () {
     return 5;
@@ -48,4 +48,8 @@ Route::delete('cars/{car}/delete',[CarWebController::class,'delete'])->name('car
 Route::get('/ayman', function () {
     return view('home');
 });
+
+Route::get('/products',[ProductWebController::class,'index'])->name('products');
+Route::get('/products/create',[ProductWebController::class,'create'])->name('products.create');
+Route::post('/products',[ProductWebController::class,'store'])->name('products.store');
 

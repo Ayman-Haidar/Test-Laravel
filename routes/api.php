@@ -12,34 +12,34 @@ Route::get('/user', function (Request $request) {
     return $request->user();
 })->middleware('auth:sanctum');
 
-Route::prefix('products')->group(function () {
+// Route::prefix('products')->group(function () {
 
-    Route::post('/', function (Request $request) {
-        $product = DB::table('products')->insert(
-            $request->products
-        );
+//     Route::post('/', function (Request $request) {
+//         $product = DB::table('products')->insert(
+//             $request->products
+//         );
 
-        return $product;
-    });
+//         return $product;
+//     });
 
-    Route::delete('/{id}', function ($id) {
-        $product = DB::table('products')->where('id', $id)->delete();
+//     Route::delete('/{id}', function ($id) {
+//         $product = DB::table('products')->where('id', $id)->delete();
 
-        return $product;
-    });
+//         return $product;
+//     });
 
-    Route::get('/{id}', function ($id) {
-        $product = DB::table('products')->where('id', $id)->get();
+//     Route::get('/{id}', function ($id) {
+//         $product = DB::table('products')->where('id', $id)->get();
 
-        return $product;
-    });
+//         return $product;
+//     });
 
-    Route::get('/', function () {
-    $product = DB::table('products')->get();
-    return $product;
-});
+//     Route::get('/', function () {
+//     $product = DB::table('products')->get();
+//     return $product;
+// });
 
-});
+// });
 
 // Route::post('products', function () {
 //     $product = DB::table('products')->insert(
@@ -116,7 +116,7 @@ Route::get('users/{user}', function (User $user) {
 
 // });
 
-Route::apiResource('products', ProductController::class);
+// Route::apiResource('products', ProductController::class);
 
-Route::post('products/{product}/reduce-stock', [ProductController::class, 'reduceStock']);
+// Route::post('products/{product}/reduce-stock', [ProductController::class, 'reduceStock']);
 
