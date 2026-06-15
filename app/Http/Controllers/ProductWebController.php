@@ -12,7 +12,7 @@ class ProductWebController extends Controller
         ->when($request->search, function ($query) use ($request) {
             $query->where('name', 'like', '%' . $request->search . '%');
         })
-        ->paginate(10);
+        ->paginate(3);
 
     return view('products.index', compact('products'));
 }
