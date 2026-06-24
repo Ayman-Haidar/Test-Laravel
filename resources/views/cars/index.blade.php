@@ -24,7 +24,7 @@
                             onsubmit="return confirm('Are you sure you want to delete this car?');">
                             @csrf
                             @method('DELETE')
-                            <button type="submit" class="btn btn-outline-danger">Delete</button>
+                            <x-button1>Delete</x-button1>
                         </form>
 
                     </td>
@@ -33,5 +33,7 @@
 
         </tbody>
     </table>
-    <a href="{{ route('cars.create') }}" class="btn btn-outline-primary">Create Car</a>
+    <x-button1 class="btn-outline-primary" style="color:black;"><a href="{{ route('cars.create') }}">Create Car</a></x-button1>
+    
+    {{-- <a href="{{ route('cars.create') }}" class="btn btn-outline-primary">Create Car</a> --}}
 @endsection

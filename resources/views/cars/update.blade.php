@@ -21,6 +21,8 @@
             {{ $message }}
         @enderror
 
-        <button type="submit" class="btn btn-outline-danger">Submit</button>
+        <x-button1>submit</x-button1>
+
+        {{-- <button type="submit" class="btn btn-outline-danger">Submit</button> --}}
     </form>
 @endsection

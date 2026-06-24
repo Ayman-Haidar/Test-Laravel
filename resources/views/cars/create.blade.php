@@ -19,7 +19,8 @@
         @error('details')
             {{ $message }}
         @enderror
+        <x-button1 class="btn-outline-danger" style="color:black;">Submit</x-button1>
 
-        <button type="submit" class="btn btn-outline-danger">Submit</button>
+        {{-- <button type="submit" class="btn btn-outline-danger">Submit</button> --}}
     </form>
 @endsection

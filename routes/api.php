@@ -2,8 +2,11 @@
 
 use App\Http\Controllers\CarController;
 use App\Http\Controllers\ProductController;
+use App\Models\MedicalFile;
+use App\Models\Student;
 use App\Models\User;
 use App\Models\Car;
+use App\Models\Role;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Route;
@@ -119,4 +122,110 @@ Route::get('users/{user}', function (User $user) {
 // Route::apiResource('products', ProductController::class);
 
 // Route::post('products/{product}/reduce-stock', [ProductController::class, 'reduceStock']);
+
+Route::post('address', function(Request $request) {
+    $user = User::query()->create([
+        'name' => $request->name,
+        'email' => $request->email,
+        'password' => $request->password,
+    ]);
+
+    // return 1;
+
+
+    $address = $user->addresses()->create([
+        'city' => $request->city,
+        'country' => $request->country,
+
+    ]);
+
+    return $address;
+});
+
+
+
+Route::post('create-role-user', function(Request $request) {
+    $user = User::query()->create([
+        'name' => $request->name,
+        'email' => $request->email,
+        'password' => $request->password,
+    ]);
+
+    $role = Role::query()->create([
+        'role_name' => $request->role_name,
+    ]);
+
+
+});
+
+Route::post('assign-role-to-user/{user}/{role}', function(User $user, Role $role) {
+    $user->roles()->syncWithoutDetaching($role->id);
+
+    // $user->roles()->attach($role, ['date' => now()]);
+
+    return [
+        'user' => $user,
+        'role' => $role,
+        'date' => now(),
+    ];
+});
+
+Route::post('student', function (Request $request) {
+    $student = Student::query()->create([
+        'name' => $request->name,
+        'phone' => $request->phone,
+    ]);
+
+    return [
+        'student' => $student,
+    ];
+
+});
+
+Route::post('medical-file',function(Request $request){
+    $existe = MedicalFile::where('student_id',$request->student_id)->exists();
+    if ($existe){
+        return response()->json([
+            'message' => 'Medical file already exists for this student.',
+        ],422);
+
+    }
+
+    $medicalFile = MedicalFile::create([
+        'blood_type' => $request->blood_type,
+        'emergency_phone_number' => $request->emergency_phone_number,
+        'student_id' => $request->student_id,
+    ]);
+        return $medicalFile;
+
+
+});
+Route::get('/students/{student}', function (Student $student) {
+    $student->load('medicalFile');
+
+    return $student;
+});
+
+Route::get('/students/{student}/medical-file', function (Student $student) {
+    $student->load('medicalFile');
+
+    if (!$student->medicalFile) {
+        return response()->json([
+            'message' => 'No medical file found for this student.',
+        ], 404);
+    }
+
+    return $student->medicalFile;
+});
+
+
+Route::put('/medical-files/{medicalFile}', function (Request $request, MedicalFile $medicalFile) {
+
+    $medicalFile->update([
+        'blood_type' => $request->blood_type ?? $medicalFile->blood_type,
+        'emergency_phone' => $request->emergency_phone ?? $medicalFile->emergency_phone,
+    ]);
+
+    return $medicalFile;
+});
 
