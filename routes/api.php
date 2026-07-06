@@ -123,6 +123,8 @@ Route::get('users/{user}', function (User $user) {
 
 // Route::post('products/{product}/reduce-stock', [ProductController::class, 'reduceStock']);
 
+Route::apiResource('cars', CarController::class);
+
 Route::post('address', function(Request $request) {
     $user = User::query()->create([
         'name' => $request->name,

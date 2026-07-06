@@ -1,23 +1,22 @@
 <?php
 
 namespace App\Http\Controllers;
+use App\Http\Requests\UpdateCarRequest;
 use App\Models\Car;
 use App\Http\Requests\StoreCarRequest;
+use App\Services\CarServices;
 use Illuminate\Http\Request;
 
 class CarController extends Controller
 {
-     public function store(StoreCarRequest $request, Car $car) {
-        $validated = $request->validated([
-            'name' => 'required|string',
-            'model' => 'required|string',
-            'details' => 'required|array',]);
+    public function __construct(protected CarServices $carServices){}
+     public function store(StoreCarRequest $storeCarRequest) {
+        $validated = $storeCarRequest->validated();
+        $this->carServices->store($validated);
+        //  $car ->create($validated);
 
-
-         $car ->create($validated);
-
-        return $car;
-        // return $request->all();
+        // return $car;
+        // return $storeCarRequest->all();
         }
 
 
@@ -41,8 +40,9 @@ class CarController extends Controller
         // }
 
 
-        public function update(Request $request,Car $car) {
-            $car ->update($request->all());
+        public function update(UpdateCarRequest $updateCarRequest,Car $car) {
+            $validated = $updateCarRequest->validated();
+            $this->carServices->update($car,$validated);
             return $car;
         }
 
@@ -78,7 +78,7 @@ class CarController extends Controller
 
 
          public function destroy(Car $car) {
-            $car ->delete();
+            $this->carServices->destroy($car);
             return $car;
         }
 
@@ -94,7 +94,7 @@ class CarController extends Controller
         }
 
         public function index() {
-             $cars = car::query()->get();
+             $cars = $this->carServices->index();
              return $cars;
          }
 
