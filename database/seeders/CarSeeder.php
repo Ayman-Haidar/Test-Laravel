@@ -13,10 +13,11 @@ class CarSeeder extends Seeder
      */
     public function run(): void
     {
-        Car::create([
-            'name' => 'Toyota Camry',
-            'model' => '2022',
-            'details' => 'A comfortable midsize sedan with great fuel efficiency.',
-        ]);
+        // Car::create([
+        //     'name' => 'Toyota Camry',
+        //     'model' => '2022',
+        //     'details' => 'A comfortable midsize sedan with great fuel efficiency.',
+        // ]);
+        Car::factory()->count(10)->create();
     }
 }
