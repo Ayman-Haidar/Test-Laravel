@@ -2,6 +2,7 @@
 use App\Http\Controllers\ProductWebController;
 use App\Http\Controllers\CarWebController;
 use App\Http\Controllers\UserController;
+use App\Http\Middleware\AgeMiddleware;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\DB;
 
@@ -34,10 +35,10 @@ route:: get('test', function () {
     return 5;
 });
 
-Route::get('user',[UserController::class,'index'])->name('user');
-Route::get('user/create',[UserController::class,'create'])->name('user.create');
-Route::post('user',[UserController::class,'store'])->name('user.store');
-
+// Route::get('user',[UserController::class,'index'])->name('user');
+// Route::get('user/create',[UserController::class,'create'])->name('user.create');
+// Route::post('user',[UserController::class,'store'])->name('user.store');
+// ->withoutMiddleware(AgeMiddleware::class)
 Route::get('cars',[CarWebController::class,'index'])->name('cars');
 Route::get('cars/{car}/edit',[CarWebController::class,'edit'])->name('cars.edit');
 Route::get('cars/create',[CarWebController::class,'create'])->name('cars.create');
