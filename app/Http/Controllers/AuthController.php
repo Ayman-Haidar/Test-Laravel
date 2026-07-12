@@ -2,21 +2,24 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\LoginRequest;
+use App\Http\Requests\RegisterRequest;
 use App\Models\User;
 use Hash;
 use Illuminate\Http\Request;
 
 class AuthController extends Controller
 {
-    public function login(Request $requsest){
-        $user = User::where('email',$requsest->email)->first();
+    public function login(LoginRequest $request){
+        $validated = $request->validated();
+        $user = User::where('email',$validated['email'])->first();
         if(!$user){
 
             return response()->json([
                 'message'=>'email not found'
             ],401);
         }
-        if(!Hash::check($requsest->password,$user->password)){
+        if(!Hash::check($validated['password'],$user->password)){
             return response()->json([
                 'message'=>'Invalid password'
             ],401);
@@ -30,11 +33,12 @@ class AuthController extends Controller
 
     }
 
-    public function register(Request $request){
+    public function register(RegisterRequest $request){
+        $validated = $request->validated();
        $user = User::create([
-            'name'=>$request->name,
-            'email'=>$request->email,
-            'password'=>$request->password,
+            'name'=>$validated['name'],
+            'email'=>$validated['email'],
+            'password'=>$validated['password'],
         ]);
         $token = $user->createToken('api-token')->plainTextToken;
         return response()->json([
